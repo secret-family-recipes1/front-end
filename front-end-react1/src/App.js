@@ -1,26 +1,92 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import {BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import { v4 as uuid } from 'uuid'; // universally unique ID - generates a random unique ID
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import Member from './components/Member';
+import SignUp from './components/SignUp'
+import LogIn from './components/LogIn'
+
+const initialTeamList = [
+  // {
+  //   id: uuid(), 
+  //   name: 'Nicole', 
+  //   email: 'nicole-tilbe@lambdastudents.com', 
+  //   role: 'Full Stack Developer',
+  // }
+]
+
+const initialFormValues = {
+  // text inputs
+  name: '', 
+  email: '',
+  // dropdown options
+  role: '',
 }
 
-export default App;
+export default function App() {
+  // giving state variables initial value
+  const [members, setMembers] = useState(initialTeamList)
+  const [formValues, setFormValues] = useState(initialFormValues)
+
+  const onInputChange = e => {
+    const { name } = e.target
+    const { value } = e.target
+    setFormValues({...formValues, [name]: value})
+  }
+
+  const onSubmit = e => {
+    e.preventDefault()
+    if (
+      !formValues.name.trim() ||
+      !formValues.email.trim())
+    {
+      return 
+    }
+    const newMember = { ...formValues, id: uuid() }
+
+    setMembers([newMember, ...members])
+
+    setFormValues(initialFormValues)
+  }
+
+  return (
+      <div className="App container"> 
+      <BrowserRouter>
+      <header>
+        <Link className="headerName" to='/'>
+          <h1>Recipe Box</h1>
+        </Link>
+      </header>
+        <Switch>
+          <Route exact path='./signup'>
+            <SignUp
+              values={formValues}
+              onInputChange={onInputChange}
+              onSubmit={onSubmit}
+            />
+          </Route>
+          <Route exact path='./login'>
+            <LogIn
+              values={formValues}
+              onInputChange={onInputChange}
+              onSubmit={onSubmit}
+              />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+        
+        {/* mapping through teamMembers array and 'consuming' TeamMember component for each */}
+        <div className="Members">
+          {
+            members.map(member => {
+              return (
+                <member key={member.id} details={member} />
+              )
+            })
+          }
+        </div>
+      </div>   
+    
+  );
+}
