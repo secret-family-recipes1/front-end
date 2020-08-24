@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid'; // universally unique ID - generates a random
 import FormSchema from './validation/FormSchema'
 import './App.css';
 import * as yup from 'yup'
-// import Member from './components/Member';
+import Member from './components/Member';
 import SignUp from './SignUp'
 import LogIn from './Login'
 
@@ -124,4 +124,3 @@ export default function App() {
         </div>
       </div>   
   );
-}
