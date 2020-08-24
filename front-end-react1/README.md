@@ -6,6 +6,10 @@ You will also have the ability to upload a photo of the original recipe along wi
 
 (https://www.notion.so/FT-Build-Week-Product-Catalog-3d7b2a1e617f4bd4b43f86dd99b79d80?p=a351e9ccf0dd47f28446dde87b2ce71b)
 
+
+Product Vision Document:
+(https://docs.google.com/document/d/1kY-G09a7rUUpEeJgmq-f9Hi8AZ1pKM_aqV34z8GQhvE/edit#heading=h.7unkvve9utkw)
+
 Color Scheme:
 - Page background: Bisque
 - Title and Header Backgrounds: Salmon or crimson

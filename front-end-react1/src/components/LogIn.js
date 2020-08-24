@@ -1,55 +1,70 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function LogIn(props) {
-    const {
-        values,
-        onInputChange,
-        onSubmit,
-    } = props
+class Login extends Component {
+	constructor(props) {
+		super(props);
 
-    return (
-        <form className='form container' onSubmit={onSubmit}>
-            <div className='form-group submit'>
-                <h2>Log In</h2>
-                <button>submit</button>
-            </div>
-            <div className='form-group inputs'>
-                <h4>Information</h4>
+		this.state = {
+			email: '',
+			password: ''
+		};
 
-                <label>Name:&nbsp;
-                    <input
-                        type='text'
-                        placeholder='Johnny Appleseed'
-                        maxLength='30'
-                        name='name'
-                        value={values.name}
-                        onChange={onInputChange}
-                    /> 
-                    <p></p>
-                </label>
+		this.update = this.update.bind(this);
 
-                <label>Email:&nbsp;
-                    <input
-                        type='text'
-                        placeholder='JohnAppleseed@gmail.com'
-                        maxLength='30'
-                        name='email'
-                        value={values.email}
-                        onChange={onInputChange}
-                    />
-                    <p></p>
-                </label>
-                <label>Password:&nbsp;
-                    <input
-                        type='text'
-                        placeholder='Password'
-                        maxLength='30'
-                        name='password'
-                        value={values.password}
-                        onChange={onInputChange}
-                    />
-                </label>
-            </div>
-        </form>
-    )
+		this.displayLogin = this.displayLogin.bind(this);
+	}
+
+	update(e) {
+		let name = e.target.name;
+		let value = e.target.value;
+		this.setState({
+			[name]: value
+		});
+	}
+
+	displayLogin(e) {
+		e.preventDefault();
+		console.log('You are logged in');
+		console.log(this.state);
+		this.setState({
+			email: '',
+			password: ''
+		});
+	}
+
+	render() {
+		return (
+			<div className="login">
+				<form onSubmit={this.displayLogin}>
+					<h2>Login</h2>
+					<div className="username">
+						<input
+							type="text"
+							placeholder="Username"
+							value={this.state.email}
+							onChange={this.update}
+							name="email"
+						/>
+					</div>
+
+					<div className="password">
+						<input
+							type="password"
+							placeholder="Password"
+							value={this.state.password}
+							onChange={this.update}
+							name="password"
+						/>
+					</div>
+
+					<input type="submit" value="Login" />
+				</form>
+
+				<Link to="/register">Create an account</Link>
+			</div>
+		);
+	}
 }
+
+export default Login;

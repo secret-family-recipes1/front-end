@@ -1,56 +1,87 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function SignUp(props) {
-    const {
-        values,
-        onInputChange,
-        onSubmit,
-    } = props
+class SignUp extends Component {
+	constructor(props) {
+		super(props);
 
-    return (
-        <form className='form container' onSubmit={onSubmit}>
-            <div className='form-group submit'>
-                <h2>Sign Up</h2>
-            </div>
-            <div className='form-group inputs'>
-                <h4>Information</h4>
+		this.state = {
+			fullname: '',
+			email: '',
+			password: ''
+		};
 
-                <label>Name:&nbsp;
-                    <input
-                        type='text'
-                        placeholder='Johnny Appleseed'
-                        maxLength='30'
-                        name='name'
-                        value={values.name}
-                        onChange={onInputChange}
-                    /> 
-                    <p></p>
-                </label>
+		this.update = this.update.bind(this);
 
-                <label>Email:&nbsp;
-                    <input
-                        type='email'
-                        placeholder='JohnAppleseed@gmail.com'
-                        maxLength='30'
-                        name='email'
-                        value={values.email}
-                        onChange={onInputChange}
-                    />
-                    <p></p>
-                </label>
-                <label>Password:&nbsp;
-                    <input
-                        type='text'
-                        placeholder='Password'
-                        maxLength='30'
-                        name='password'
-                        value={values.password}
-                        onChange={onInputChange}
-                    />
-                </label>
-            </div>
-            <p> </p>
-            <button>submit</button>
-        </form>
-    )
+		this.displayLogin = this.displayLogin.bind(this);
+	}
+
+	update(e) {
+		let name = e.target.name;
+		let value = e.target.value;
+		this.setState({
+			[name]: value
+		});
+	}
+
+	displayLogin(e) {
+		e.preventDefault();
+		console.log('You have successfully registered');
+		console.log(this.state);
+		this.setState({
+			fullname: '',
+			email: '',
+			password: ''
+		});
+	}
+
+	render() {
+		return (
+			<div className="register">
+				<form onSubmit={this.displayLogin}>
+					<h2>Register</h2>
+
+					<div className="name">
+						<input
+							type="text"
+							placeholder="Full Name"
+							name="fullname"
+							value={this.state.fullname}
+							onChange={this.update}
+						/>
+					</div>
+
+					<div className="email">
+						<input
+							type="text"
+							placeholder="Enter your email"
+							name="email"
+							value={this.state.email}
+							onChange={this.update}
+						/>
+					</div>
+
+					<div className="pasword">
+						<input
+							type="password"
+							placeholder="Password"
+							name="password"
+							value={this.state.password}
+							onChange={this.update}
+						/>
+					</div>
+
+					<div className="password">
+						<input type="password" placeholder="Confirm Password" name="password1" />
+					</div>
+
+					<input type="submit" value="Login" />
+				</form>
+
+				<Link to="/">Login Here</Link>
+			</div>
+		);
+	}
 }
+
+export default SignUp;
