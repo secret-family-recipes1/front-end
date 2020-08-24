@@ -17,9 +17,9 @@ Color Scheme:
 - Font: inter
 
 ## MVP OBJECTIVES
-[ ] Item 1 - Created functional components and used events in application to add dynamic functionality to app.
+[X] Item 1 - Created functional components and used events in application to add dynamic functionality to app.
 
-[ ] Item 2 - Code was organized at the component level, proper usage of state and props are demonstrated throughout the project, the UI is composed of small reusable components, proper usage of useState and useEffect hooks are clearly incorporated and correctly implemented. Student used Array methods to dynamically render HTML elements.
+[X] Item 2 - Code was organized at the component level, proper usage of state and props are demonstrated throughout the project, the UI is composed of small reusable components, proper usage of useState and useEffect hooks are clearly incorporated and correctly implemented. Student used Array methods to dynamically render HTML elements.
 
 [ ] Item 3 - Implemented GET requests using either axios or fetch to display 3rd party data on a deployed page. Route management properly installed and used to show top level pages as well as nested views where necessary.
 

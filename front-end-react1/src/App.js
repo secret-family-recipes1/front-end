@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import {BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'; // universally unique ID - generates a random unique ID
-
+import FormSchema from './validation/FormSchema'
 import './App.css';
+import * as yup from 'yup'
 import Member from './components/Member';
 import SignUp from './components/SignUp'
 import LogIn from './components/LogIn'
@@ -13,12 +14,20 @@ const initialFormValues = {
   // text inputs
   name: '', 
   email: '',
+  password: ''
+}
+
+const initialFormErrors = {
+  name: '',
+  email: '',
+  password: ''
 }
 
 export default function App() {
   // giving state variables initial value
   const [members, setMembers] = useState(initialTeamList)
   const [formValues, setFormValues] = useState(initialFormValues)
+  const [formErrors, setFormErrors] = useState(initialFormErrors)
 
   const onInputChange = e => {
     const { name } = e.target
@@ -30,7 +39,8 @@ export default function App() {
     e.preventDefault()
     if (
       !formValues.name.trim() ||
-      !formValues.email.trim())
+      !formValues.email.trim() ||
+      !formValues.password.trim())
     {
       return 
     }
@@ -40,6 +50,30 @@ export default function App() {
 
     setFormValues(initialFormValues)
   }
+
+  const inputChange = (name, value) => {
+    yup
+      .reach(FormSchema, name)
+      .validate(value)
+      .then(valid => {
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        })
+      })
+      .catch(err => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0],
+        })
+      })
+
+    setFormValues({
+      ...formValues,
+      [name]: value
+    })
+  }
+
 
   return (
     <div className="App container"> 
