@@ -47,6 +47,24 @@ export default function App() {
     const newMember = { ...formValues, id: uuid() }
 
     setMembers([newMember, ...members])
+    axios
+    .post(' API ADDRESS /auth/login', formValues)
+   
+    .then(res => {
+        console.log('response', res.data.token)
+        localStorage.setItem('jwt', res.data.token);
+        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('user_id', res.data.id);
+        window.location.reload();
+        this.props.history.push('/recipes');                    
+    })
+    .catch(err => {
+        console.log(err);
+        alert("Login failed. Please check username and password.");
+    })
+
+
+} 
 
     setFormValues(initialFormValues)
   }
