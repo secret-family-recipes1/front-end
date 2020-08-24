@@ -36,6 +36,7 @@ export default function SignUp(props) {
                         value={values.email}
                         onChange={onInputChange}
                     />
+                    <p></p>
                 </label>
                 <label>Password:&nbsp;
                     <input

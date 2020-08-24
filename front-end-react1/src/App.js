@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'; // universally unique ID - generates a random unique ID
 
 import './App.css';
@@ -51,30 +51,30 @@ export default function App() {
   }
 
   return (
-      <div className="App container"> 
-      <BrowserRouter>
-      <header>
-        <Link className="headerName" to='/'>
-          <h1>Recipe Box</h1>
-        </Link>
-      </header>
-        <Switch>
-          <Route exact path='./signup'>
-            <SignUp
-              values={formValues}
-              onInputChange={onInputChange}
-              onSubmit={onSubmit}
-            />
-          </Route>
-          <Route exact path='./login'>
-            <LogIn
-              values={formValues}
-              onInputChange={onInputChange}
-              onSubmit={onSubmit}
-              />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+    <div className="App container"> 
+      <Switch>
+        <Route path='/signup'>
+          <Link className="headerName" to='/'>
+            <h1>Recipe Box</h1>
+          </Link>
+          <SignUp
+            values={formValues}
+            onInputChange={onInputChange}
+            onSubmit={onSubmit}
+          />
+        </Route>
+        <Route path='/login'>
+          <Link className="headerName" to='/'>
+            <h1>Recipe Box</h1>
+          </Link>
+          <LogIn
+            values={formValues}
+            onInputChange={onInputChange}
+            onSubmit={onSubmit}
+          />
+        </Route>
+      </Switch>
+      
         
         {/* mapping through teamMembers array and 'consuming' TeamMember component for each */}
         <div className="Members">
