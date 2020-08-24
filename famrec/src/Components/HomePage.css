@@ -1,0 +1,13 @@
+.home {
+    width: 100%;
+    background: white;
+    display: flex;
+  
+    padding: 5px 10px 2px auto;
+
+}
+
+h3 {
+background: rgb(121, 117, 121);
+
+}
