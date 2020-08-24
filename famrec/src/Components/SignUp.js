@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import FormSchema from './validation/FormSchema'
-import * as yup from 'yup'
+
 
 class SignUp extends Component {
 	constructor(props) {
@@ -19,24 +19,9 @@ class SignUp extends Component {
 		// this.displayLogin = this.displayLogin.bind(this);
 	}
 
-	update(name, value) {
-		yup
-		.reach(FormSchema, name)
-		.validate(value)
-		.then(valid => {
-		  setFormErrors({
-			...formErrors,
-			[name]: "",
-		  })
-		})
-		.catch(err => {
-		  setFormErrors({
-			...formErrors,
-			[name]: err.errors[0],
-		  })
-		})
-		// let name = e.target.name;
-		// let value = e.target.value;
+	update(e) {
+		let name = e.target.name;
+		let value = e.target.value;
 		this.setState({
 			[name]: value
 		});
@@ -69,13 +54,9 @@ class SignUp extends Component {
 			console.log(this.props.history)
 			axios
 			.post('https://back-end-recipes.herokuapp.com/api/auth/register', this.state)
-		   
 			.then(res => {
 				console.log('response', res.data.token)
 				localStorage.setItem('jwt', res.data.token);
-				// localStorage.setItem('isLoggedIn', true);
-				// localStorage.setItem('user_id', res.data.id);
-				// window.location.reload();
 				this.props.history.push('/login');                    
 			})
 			.catch(err => {

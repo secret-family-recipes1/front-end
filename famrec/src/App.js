@@ -3,12 +3,13 @@ import { Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './Components/NavBar';
 import HomePage from './Components/HomePage';
-import SignUpPageView from './Components/SignUpPageView';
-import LoginPageView from './Components/LoginPageView';
 import RecipeListView from './Components/RecipeListView';
 import IndivRecipeView from './Components/IndivRecipeView';
 import AddRecipeView from './Components/AddRecipeView';
 import axios from 'axios'
+
+import Login from './Components/Login'
+import SignUp from './Components/SignUp'
 
 class App extends Component {
   constructor() {
@@ -33,8 +34,6 @@ class App extends Component {
                   console.log('Error retrieving recipes: ', err);
               })
       )
-
-
   }
 
   componentDidMount() {
@@ -98,12 +97,20 @@ class App extends Component {
 
         <Route exact path="/" component = {HomePage} />
 
-        <Route exact path="/signup"
+        {/* <Route exact path="/signup"
           render={props => <SignUpPageView {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id}/> }
         />
 
         <Route exact path="/login"
           render={props => <LoginPageView {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id}/> }
+        /> */}
+
+        <Route exact path="/signup"
+          render={props => <SignUp {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id}/> }
+        />
+
+        <Route exact path="/login"
+          render={props => <Login {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id}/> }
         />
 
         <Route exact path="/recipes"
