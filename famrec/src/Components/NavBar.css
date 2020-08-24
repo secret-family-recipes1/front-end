@@ -1,8 +1,8 @@
  .navbar-wrapper {
-    width: 120%;
-    background: gray;
-    
-   
+    width: 100%;
+    background-color: silver;
+    padding: 1rem;
+    display: flex;
 }
 
 .navbar-container {
@@ -10,7 +10,7 @@
     justify-content: space-around;
     align-items: space-between;
     align-content: center;
-    width: 120%;
+    width: 100%;
     padding: 5px 0px 0px 10px;
   
 }
