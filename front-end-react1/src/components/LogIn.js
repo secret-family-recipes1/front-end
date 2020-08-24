@@ -61,7 +61,7 @@ class Login extends Component {
 					<input type="submit" value="Login" />
 				</form>
 
-				<Link to="/register">Create an account</Link>
+				<Link to="/signup">Create an account</Link>
 			</div>
 		);
 	}

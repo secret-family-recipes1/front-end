@@ -7,21 +7,12 @@ import Member from './components/Member';
 import SignUp from './components/SignUp'
 import LogIn from './components/LogIn'
 
-const initialTeamList = [
-  // {
-  //   id: uuid(), 
-  //   name: 'Nicole', 
-  //   email: 'nicole-tilbe@lambdastudents.com', 
-  //   role: 'Full Stack Developer',
-  // }
-]
+const initialTeamList = []
 
 const initialFormValues = {
   // text inputs
   name: '', 
   email: '',
-  // dropdown options
-  role: '',
 }
 
 export default function App() {
@@ -54,9 +45,6 @@ export default function App() {
     <div className="App container"> 
       <Switch>
         <Route path='/signup'>
-          <Link className="headerName" to='/'>
-            <h1>Recipe Box</h1>
-          </Link>
           <SignUp
             values={formValues}
             onInputChange={onInputChange}
@@ -64,9 +52,6 @@ export default function App() {
           />
         </Route>
         <Route path='/login'>
-          <Link className="headerName" to='/'>
-            <h1>Recipe Box</h1>
-          </Link>
           <LogIn
             values={formValues}
             onInputChange={onInputChange}
