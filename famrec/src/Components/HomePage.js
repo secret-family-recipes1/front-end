@@ -1,18 +1,16 @@
 import React from 'react';
 import './HomePage.css';
+import RecipeListView from './RecipeListView';
 
-class HomePage extends React.Component {
 
+const HomePage = () => {
 
-    render() {
         return (
-            <div class="home">
-    
-                <br/> 
+            <div>
                 <h2>Your family's secret recipes</h2>
+                <RecipeListView />
             </div>
         )
-    }
 }
 
 export default HomePage;

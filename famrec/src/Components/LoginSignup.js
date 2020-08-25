@@ -12,13 +12,15 @@ const initialTeamList = []
 
 const initialFormValues = {
   // text inputs
-  name: '', 
+  firstName: '', 
+  lastName: '',
   email: '',
   password: ''
 }
 
 const initialFormErrors = {
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: ''
 }
@@ -35,39 +37,38 @@ export default function App() {
     setFormValues({...formValues, [name]: value})
   }
 
-  const onSubmit = e => {
-    e.preventDefault()
-    if (
-      !formValues.name.trim() ||
-      !formValues.email.trim() ||
-      !formValues.password.trim())
-    {
-      return 
-    }
-    const newMember = { ...formValues, id: uuid() }
+//   const onSubmit = e => {
+//     e.preventDefault()
+//     if (
+//       !formValues.firstName.trim() ||
+//       !formValues.lastName.trim() ||
+//       !formValues.email.trim() ||
+//       !formValues.password.trim())
+//     {
+//       return 
+//     }
+//     const newMember = { ...formValues, id: uuid() }
 
-    setMembers([newMember, ...members])
-    axios
-    .post(' API ADDRESS /auth/login', formValues)
+//     setMembers([newMember, ...members])
+
+//     axios
+//     .post('https://back-end-recipes.herokuapp.com/api/auth/register', formValues)
    
-    .then(res => {
-        console.log('response', res.data.token)
-        localStorage.setItem('jwt', res.data.token);
-        localStorage.setItem('isLoggedIn', true);
-        localStorage.setItem('user_id', res.data.id);
-        window.location.reload();
-        this.props.history.push('/recipes');                    
-    })
-    .catch(err => {
-        console.log(err);
-        alert("Login failed. Please check username and password.");
-    })
-
-
-} 
-
-    setFormValues(initialFormValues)
-  }
+//     .then(res => {
+//         console.log('response', res.data.token)
+//         localStorage.setItem('jwt', res.data.token);
+//         localStorage.setItem('isLoggedIn', true);
+//         localStorage.setItem('user_id', res.data.id);
+//         window.location.reload();
+//         this.props.history.push('/recipes');                    
+//     })
+//     .catch(err => {
+//         console.log(err);
+//         alert("Login failed. Please check username and password.");
+//     })
+// } 
+//     setFormValues(initialFormValues)
+//   }
 
   const inputChange = (name, value) => {
     yup
@@ -124,3 +125,4 @@ export default function App() {
         </div>
       </div>   
   );
+        }
