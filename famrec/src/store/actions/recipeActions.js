@@ -37,7 +37,7 @@ export const searchRecipeById = (recipeId) => (dispatch) => {
     console.log('fetch recipe by id')
     dispatch({type: FETCHING_RECIPES_START })
     axiosWithAuth()
-    .post(`/api/recipes/${recipeId}`)
+    .get(`/api/recipes/${recipeId}`)
     .then(res => {
         console.log(res.data)
         dispatch({type:FETCH_RECIPES_SUCCESS, payload: res.data})

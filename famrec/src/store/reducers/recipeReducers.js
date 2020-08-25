@@ -7,7 +7,7 @@ import {FETCHING_RECIPES_START,
 const initialState = {
     recipes: [],
     loading: false,
-    errors: ''
+    errors: '',
 }
 
 export const recipeReducer = (state = initialState, action) => {

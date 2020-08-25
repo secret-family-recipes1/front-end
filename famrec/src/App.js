@@ -3,9 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 import NavBar from './Components/NavBar';
 import HomePage from './Components/HomePage';
-import RecipeListView from './Components/RecipeListView';
-import IndivRecipeView from './Components/IndivRecipeView';
-
+import RecipeCard from './Components/IndivRecipe';
 import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import PrivateRoute from './Components/privateRoute'
@@ -55,7 +53,7 @@ useEffect(() => {
 
           <PrivateRoute exact path='/add-recipe' component={AddRecipeForm} />
 
-          <PrivateRoute exact path='/recipe-list/:id' />
+          <PrivateRoute exact path='/recipe/:id' component={RecipeCard}/>
         </Switch>
         
       </StyledApp>

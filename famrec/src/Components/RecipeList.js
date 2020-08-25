@@ -1,45 +1,46 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom'
+
 
 import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
-class RecipeList extends React.Component {
-    constructor(props){
-        super(props);
-    }
-   
-    routeToRecipe(e, recipe) {
-        e.preventDefault();
-        this.props.history.push(`/recipe-list/${recipe.id}`);
-    }
+const RecipeList = props => {
+const {recipe} = props
+const history = useHistory()
 
-    handleDelete = () => {
-        this.props.deleteRecipe(this.props.recipe.id,this.props.recipe.user_id)
-    }
+    // routeToRecipe(e, recipe) {
+    //     e.preventDefault();
+    //     this.props.history.push(`/recipe-list/${recipe.id}`);
+    // }
 
-    handleEdit = () => {
-        this.props.toggleMode(this.props.recipe)
-    }
+    // handleDelete = () => {
+    //     this.props.deleteRecipe(this.props.recipe.id,this.props.recipe.user_id)
+    // }
 
-    render() {
+    // handleEdit = () => {
+    //     this.props.toggleMode(this.props.recipe)
+    // }
+
         
         return (
-                    <div className="recipe-card-list">
-                        <Card>
+                    <div className="recipe-card-list" >
+                        <Card  onClick={(e) => {
+                                 e.preventDefault()
+                                    history.push(`/recipe/${recipe.id}/`)}}>
                          <CardBody>
-                            <CardTitle className="addInfoInput">{this.props.recipe.title}</CardTitle>
-                            <CardSubtitle>Category: {this.props.recipe.category}</CardSubtitle>
-                           <CardSubtitle>From the kitchen of: {this.props.recipe.source}</CardSubtitle>
-                         
-                             <CardText>Ingredients: {this.props.recipe.ingredients}</CardText>
-                             <CardText>Instructions: {this.props.recipe.instructions}</CardText>
+                            <CardTitle className="addInfoInput">{recipe.name}</CardTitle>
+                            <CardSubtitle>Category: {recipe.category}</CardSubtitle>
+                           <CardSubtitle>From the kitchen of: {recipe.source}</CardSubtitle>
+                            <img src={recipe.imageURL} alt='recipe image'></img>
+                             <CardText>Ingredients: {recipe.ingredients}</CardText>
+                             <CardText>Instructions: {recipe.instructions}</CardText>
                        
-                             <Button onClick={this.handleEdit.bind(this)}>Edit</Button>
-                             <Button onClick={this.handleDelete.bind(this)}>Delete</Button>
+                             {/* <Button onClick={}>Edit</Button>
+                             <Button onClick={}>Delete</Button> */}
                          </CardBody>
                         </Card>
                      </div>
         )
-    }
 }
 
 export default RecipeList;

@@ -12,10 +12,6 @@ const NavBar = props => {
                         <h2>Home</h2>
                     </Link> 
                     
-                     <Link to='/recipes' class="links">
-                        {props.isLoggedIn ? <h2>Recipes</h2> : null}
-                    </Link>
-                    
                     <Link to='/add-recipe' class="links">
                         {props.isLoggedIn ? <h2>Add Recipe</h2> : null}
                     </Link>

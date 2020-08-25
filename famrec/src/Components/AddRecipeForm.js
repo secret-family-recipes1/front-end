@@ -9,7 +9,8 @@ import {connect} from 'react-redux'
 const initialValues = {
     name: '',
     source: '',
-    category: ''
+    category: '',
+    imageURL: ''
 }
 
 const ingredientsValues = {
@@ -46,9 +47,21 @@ const AddRecipeForm = (props) => {
     return (
         <div className="recipesForm">
 
-            <Form class= "recipesForm" onSubmit={submitHandler}>
+            <Form className= "recipesForm" onSubmit={submitHandler}>
 
-                    <FormGroup class= "recipesForm">
+                <FormGroup>
+                    <Label for="recipe-title">Recipe Name</Label>
+                    <Input 
+                        type="text" 
+                        name="name" 
+                        placeholder="Name Of the Dish" 
+                        onChange={handleChanges}
+                        value={form.name}
+                        required
+                        />
+                </FormGroup>
+
+                <FormGroup class= "recipesForm">
                         <Label for="recipe-category">Recipe Category</Label>
                             <Input class= "recipesForm"
                                 type="text" 
@@ -59,21 +72,9 @@ const AddRecipeForm = (props) => {
                                 required
                             />
                 </FormGroup>
-
-                <FormGroup>
-                    <Label for="recipe-title">Recipe Title</Label>
-                    <Input 
-                        type="text" 
-                        name="name" 
-                        placeholder="Name Of the Dish" 
-                        onChange={handleChanges}
-                        value={form.name}
-                        required
-                        />
-                </FormGroup>
             
                 <FormGroup>
-                    <Label for="recipe-source">Source</Label>
+                    <Label for="recipe-source">Recipe Source</Label>
                     <Input 
                         type="text" 
                         name="source" 
@@ -81,6 +82,17 @@ const AddRecipeForm = (props) => {
                         onChange={handleChanges}
                         value={form.source}
                         required
+                        />
+                </FormGroup>
+
+                <FormGroup>
+                    <Label for="recipe-image">Image</Label>
+                    <Input 
+                        type="text" 
+                        name="imageURL" 
+                        placeholder="URL of image" 
+                        onChange={handleChanges}
+                        value={form.imageURL}
                         />
                 </FormGroup>
 
