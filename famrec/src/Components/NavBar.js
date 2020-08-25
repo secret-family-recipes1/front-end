@@ -8,9 +8,9 @@ const NavBar = props => {
         <div className="navbar-wrapper">
             <div className="navbar-container">
                 <div className="link-container">
-                    { <Link to='/' class="links">
+                    <Link to='/' class="links">
                         <h2>Home</h2>
-                    </Link> }
+                    </Link> 
                     
                      <Link to='/recipes' class="links">
                         {props.isLoggedIn ? <h2>Recipes</h2> : null}

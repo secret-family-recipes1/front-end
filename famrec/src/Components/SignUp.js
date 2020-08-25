@@ -1,33 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios'
+import { v4 as uuid } from 'uuid'; // universally unique ID - generates a random unique ID
 import FormSchema from './validation/FormSchema'
+import * as yup from 'yup'
 
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 
+const initialTeamList = []
 
+const initialFormValues = {
+	// text inputs
+	firstname: '',
+	lastname: '',
+	email: '',
+	password: ''
+  }
 
-class SignUp extends Component {
-	constructor(props) {
-		super(props);
+  const initialFormErrors = {
+	firstname: '',
+	lastname: '',
+	email: '',
+	password: ''
+  }
+  
+const SignUp = props => {
+	const [members, setMembers] = useState(initialTeamList)
+	const [formErrors, setFormErrors] = useState(initialFormErrors)
+	const [formValues, setFormValues] = useState(initialFormValues)
+	const history = useHistory()
 
-		this.state = {
-			firstname: '',
-			lastname: '',
-			email: '',
-			password: ''
-		};
-
-		this.update = this.update.bind(this);
-		// this.displayLogin = this.displayLogin.bind(this);
-	}
-
-	update(e) {
-		let name = e.target.name;
-		let value = e.target.value;
-		this.setState({
-			[name]: value
-		});
+	const update = (e) => {
+		const { name, value } = e.target
+		yup
+		.reach(FormSchema, name)
+		.validate(value)
+		.then(valid => {
+		  setFormErrors({
+			...formErrors,
+			[name]: "",
+		  })
+		})
+		.catch(err => {
+		  setFormErrors({
+			...formErrors,
+			[name]: err.errors[0],
+		  })
+		})
+  
+	  setFormValues({
+		...formValues,
+		[name]: value
+	  })
 	}
 
 	// displayLogin(e) {
@@ -43,24 +66,22 @@ class SignUp extends Component {
 	// }
 
 
-	onSubmit = e => {
+	const onSubmit = e => {
 		e.preventDefault()
 		if (
-		  !this.state.firstname.trim() ||
-		  !this.state.lastname.trim() ||
-		  !this.state.email.trim() ||
-		  !this.state.password.trim())
+		  !formValues.firstname.trim() ||
+		  !formValues.lastname.trim() ||
+		  !formValues.email.trim() ||
+		  !formValues.password.trim())
 		{
 		  return 
 		} else {
 			console.log('registering')
-			console.log(this.props.history)
 			axiosWithAuth()
-			.post('/api/users/register', this.state)
+			.post('/api/users/register', formValues)
 			.then(res => {
-				console.log('response', res.data.token)
-				// localStorage.setItem('token', res.data.token);
-				this.props.history.push('/login');                    
+				console.log('response', res)
+				history.push('/login');                    
 			})
 			.catch(err => {
 				console.log(err);
@@ -70,20 +91,18 @@ class SignUp extends Component {
 		}
 	} 
 
-
-	render() {
 		return (
 			<div className="register">
-				<form onSubmit={this.onSubmit}>
+				<form onSubmit={onSubmit}>
 					<h2>Register</h2>
-
+					<p>{formErrors.firstname}</p>
 					<div className="name">
 						<input
 							type="text"
 							placeholder="First Name"
 							name="firstname"
-							value={this.state.firstname}
-							onChange={this.update}
+							value={formValues.firstname}
+							onChange={update}
 						/>
 					</div>
 					<div className="name">
@@ -91,8 +110,8 @@ class SignUp extends Component {
 							type="text"
 							placeholder="Last Name"
 							name="lastname"
-							value={this.state.lastname}
-							onChange={this.update}
+							value={formValues.lastname}
+							onChange={update}
 						/>
 					</div>
 
@@ -101,8 +120,8 @@ class SignUp extends Component {
 							type="text"
 							placeholder="Enter your email"
 							name="email"
-							value={this.state.email}
-							onChange={this.update}
+							value={formValues.email}
+							onChange={update}
 						/>
 					</div>
 
@@ -111,8 +130,8 @@ class SignUp extends Component {
 							type="password"
 							placeholder="Password"
 							name="password"
-							value={this.state.password}
-							onChange={this.update}
+							value={formValues.password}
+							onChange={update}
 						/>
 					</div>
 
@@ -123,10 +142,9 @@ class SignUp extends Component {
 					<input type="submit" value="Register" />
 				</form>
 
-				<Link to="/login ">Login Here</Link>
+				<Link to="/login">Login Here</Link>
 			</div>
 		);
-	}
 }
 
 export default SignUp;

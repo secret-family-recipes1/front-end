@@ -41,7 +41,6 @@ class RecipeList extends React.Component {
                      </div>
         )
     }
-
 }
 
 export default RecipeList;
