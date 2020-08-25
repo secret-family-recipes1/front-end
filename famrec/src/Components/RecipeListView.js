@@ -1,89 +1,40 @@
-import React from 'react';
-import axios from 'axios';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux'
+import {getRecipes} from '../store/actions/recipeActions'
+
 
 import RecipeList from './RecipeList';
-import AddRecipeForm from './AddRecipeForm'
-import authenticate from './Authenticate'
+// import AddRecipeForm from './AddRecipeForm'
+// import authenticate from './Authenticate'
 
 
-class RecipeListView extends React.Component {
-    state = {
-        recipes: [],
-        editMode: false,
-    };
+const RecipeListView = (props) => {
 
-    updateRecipe = () => {
-        console.log("Hi there");
-        
-            return axios
-                // API 
-                .put(` API GOES HERE ${this.state.recipe.id}`, this.state.recipe)
-                
-                .then(res => {
-                    console.log(res);
-                    window.location = "/recipes";
-                })
-                .catch(err => {
-                    console.log(err);
-                    alert("There was an error while saving your recipe.");
-                })
-    }
+    useEffect(() => {
+        props.getRecipes()
+    }, [])
 
-    handleChange = e => {
-        this.setState({
-            recipe: {
-                ...this.state.recipe,
-                [e.target.name]: e.target.value
-            }
-        });
-    };
-
-
-    toggleMode = (currentRecipe) => {
-        
-        this.setState(prevState => ({
-            editMode: !prevState.editMode,
-            recipe: {
-                ...currentRecipe
-            }
-        }));
-    }
-
-    componentDidMount() {
-    
-    }
-
-    render() {
-        if (!this.state.editMode) {
-            return (
-            
-            <div className="recipe-list-page">
-                {this.props.recipes.map(recipe =>
-                <RecipeList
-                recipe={recipe}
-                deleteRecipe={this.props.deleteRecipe}
-                isLoggedIn={this.props.isLoggedIn}
-                toggleMode={this.toggleMode}
-                handleChange={this.handleChange}>
-                </RecipeList>)}
-                
-                
-            </div>
-            )
-    } else {
-        return (
-            <div>              
-            {this.props.recipes.map(recipe =>
-                <AddRecipeForm
-                    handleChange={this.handleChange}
-                    recipe={this.state.recipe}
-                    addRecipe={this.updateRecipe}
-                    toggleMode={this.toggleMode}
-                ></AddRecipeForm>)}
-            </div>  
-        )
-    }
-}
+return (
+    <div>
+        {(props.recipes != undefined && props.recipes.length > 0) ? (<div>{
+            props.recipes.map(recipe => {
+                return <p>{recipe.recipeName}</p>
+            })
+            } </div>) : <p>No recipes</p> }
+        {/* // {props.recipes.map(recipe => { */}
+        {/* return <p>{recipe.recipeName}</p> */}
+        {/* })} */}
+    </div>
+)
 }
 
-export default authenticate(RecipeListView);
+
+const mapStateToProps = state => {
+    return {
+        recipes: state.recipes,
+        erros: state.errors
+    }
+}
+
+export default connect(mapStateToProps, {getRecipes})(RecipeListView)
+// export default RecipeListView

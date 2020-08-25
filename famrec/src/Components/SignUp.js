@@ -3,6 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import FormSchema from './validation/FormSchema'
 
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+
+
 
 class SignUp extends Component {
 	constructor(props) {
@@ -52,11 +55,11 @@ class SignUp extends Component {
 		} else {
 			console.log('registering')
 			console.log(this.props.history)
-			axios
-			.post('https://back-end-recipes.herokuapp.com/api/auth/register', this.state)
+			axiosWithAuth()
+			.post('/api/users/register', this.state)
 			.then(res => {
 				console.log('response', res.data.token)
-				localStorage.setItem('jwt', res.data.token);
+				// localStorage.setItem('token', res.data.token);
 				this.props.history.push('/login');                    
 			})
 			.catch(err => {

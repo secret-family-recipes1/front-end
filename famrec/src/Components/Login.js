@@ -1,58 +1,46 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import FormSchema from './validation/FormSchema'
 
+import {axiosWithAuth} from '../utils/axiosWithAuth'
 
-class Login extends Component {
-	constructor(props) {
-		super(props);
 
-		this.state = {
-			email: '',
-			password: ''
-		};
+const Login = (props) => {
+const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+})
 
-		this.update = this.update.bind(this);
+const history = useHistory()
 
-		// this.displayLogin = this.displayLogin.bind(this);
-	}
 
-	update(e) {
+	const update = (e) => {
 		let name = e.target.name;
 		let value = e.target.value;
-		this.setState({
+		setCredentials({...credentials,
 			[name]: value
 		});
 	}
 
-	// displayLogin(e) {
-	// 	e.preventDefault();
-	// 	console.log('You are logged in');
-	// 	console.log(this.state);
-	// 	this.setState({
-	// 		email: '',
-	// 		password: ''
-	// 	});
-    // }
-    
-    onSubmit = e => {
+    const onSubmit = e => {
 		e.preventDefault()
 		if (
-		  !this.state.email.trim() ||
-		  !this.state.password.trim())
+		  !credentials.email.trim() ||
+		  !credentials.password.trim())
 		{
 		  return 
 		} else {
-			console.log('registering')
-			console.log(this.props.history)
-			axios
-			.post('https://back-end-recipes.herokuapp.com/api/auth/login', this.state)
+			console.log('logging in')
+			axiosWithAuth()
+			.post('/api/users/login', credentials)
 	
 			.then(res => {
-				console.log('response', res.data.token)
-				localStorage.setItem('jwt', res.data.token);
-				this.props.history.push('/recipes');                    
+                console.log('response', res.data.token)
+                localStorage.setItem('token', res.data.token);
+                history.push('/recipes'); 
+				console.log('you are logged in')   
+				props.setIsLoggedIn(true)            
 			})
 			.catch(err => {
 				console.log(err);
@@ -62,17 +50,16 @@ class Login extends Component {
 		}
 	} 
 
-	render() {
 		return (
 			<div className="login">
-				<form onSubmit={this.onSubmit}>
+				<form onSubmit={onSubmit}>
 					<h2>Login</h2>
 					<div className="username">
 						<input
 							type="text"
 							placeholder="Username"
-							value={this.state.email}
-							onChange={this.update}
+							value={credentials.email}
+							onChange={update}
 							name="email"
 						/>
 					</div>
@@ -81,8 +68,8 @@ class Login extends Component {
 						<input
 							type="password"
 							placeholder="Password"
-							value={this.state.password}
-							onChange={this.update}
+							value={credentials.password}
+							onChange={update}
 							name="password"
 						/>
 					</div>
@@ -93,7 +80,6 @@ class Login extends Component {
 				<Link to="/signup">Create an account</Link>
 			</div>
 		);
-	}
 }
 
 export default Login;

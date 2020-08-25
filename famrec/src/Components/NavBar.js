@@ -1,10 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {toggleLogin} from '../store/actions/recipeActions'
+import {connect} from 'react-redux'
+
 
 import './NavBar.css';
 
 
+
 const NavBar = props => {
+
+
     return (
         <div className="navbar-wrapper">
             <div className="navbar-container">
@@ -18,22 +24,21 @@ const NavBar = props => {
                         <h2>{props.isLoggedIn ? null : "Sign Up"}</h2>
                     </Link>
                     
-
                     <Link to='/login' class="links">
                         <h2>{props.isLoggedIn ? null : "Login"}</h2>
                     </Link>
 
-                    <Link to='/recipes' class="links">
+                     <Link to='/recipes' class="links">
                         <h2>{props.isLoggedIn ? "Recipes" : null}</h2>
                     </Link>
                     
-                    <Link to='/addrecipe' class="links">
+                    <Link to='/add-recipe' class="links">
                         <h2>{props.isLoggedIn ? "Add Recipe" : null}</h2>
                     </Link>
                     
                     <Link to='/' onClick={props.logout} class="links" >
                         <h2>{props.isLoggedIn ? "Logout" : null}</h2>
-                    </Link>
+                    </Link> 
 
                    
 
@@ -45,4 +50,6 @@ const NavBar = props => {
     );
 }
 
-export default NavBar;
+
+export default NavBar
+
