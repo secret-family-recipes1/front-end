@@ -14,6 +14,12 @@ import AddRecipeForm from './Components/AddRecipeForm';
 const App = () => {
 const [isLoggedIn, setIsLoggedIn] = useState()
 
+useEffect(() => {
+  if(localStorage.getItem('token') != null){
+    setIsLoggedIn(true)
+  }
+}, [])
+
   const logout = () => {
     localStorage.clear();
     setIsLoggedIn(false)
