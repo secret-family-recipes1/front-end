@@ -1,35 +1,53 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
-import {addRecipe} from '../store/actions/recipeActions'
+import {addRecipe, submitEverything} from '../store/actions/recipeActions'
+
 import {connect} from 'react-redux'
 
 
 const initialValues = {
-    recipeName: '',
+    name: '',
     source: '',
+    category: ''
+}
 
+const ingredientsValues = {
+    ingredient: ''
+}
+
+const instructionsValues = {
+    instruction: ''
 }
 
 const AddRecipeForm = (props) => {
     const [form, setForm] = useState(initialValues)
+    const [ingredients, setIngredients] = useState(ingredientsValues)
+    const [instructions, setInstructions] = useState(instructionsValues)
+
     const history = useHistory()
 
-    const submitHandler = (e) =>{
+    const submitHandler = (e) => {
         e.preventDefault();
-        props.addRecipe(form)
+        props.submitEverything(form, ingredients, instructions)
         history.push('/recipes')
     }
 
     const handleChanges = evt => {
         setForm({...form, [evt.target.name]: evt.target.value})
     }
-    
+    const handleIngredients = evt => {
+        setIngredients({...ingredients, [evt.target.name]: evt.target.value})
+    }
+    const handleInstructions = evt => {
+        setInstructions({...instructions, [evt.target.name]: evt.target.value})
+    }
+
     return (
         <div className="recipesForm">
 
             <Form class= "recipesForm" onSubmit={submitHandler}>
-{/* 
+
                     <FormGroup class= "recipesForm">
                         <Label for="recipe-category">Recipe Category</Label>
                             <Input class= "recipesForm"
@@ -37,19 +55,19 @@ const AddRecipeForm = (props) => {
                                 name="category" 
                                 placeholder="Breakfast, Lunch, Dinner" 
                                 onChange={handleChanges}
-                                value={props.recipe.category}
+                                value={form.category}
                                 required
                             />
-                </FormGroup> */}
+                </FormGroup>
 
                 <FormGroup>
                     <Label for="recipe-title">Recipe Title</Label>
                     <Input 
                         type="text" 
-                        name="recipeName" 
+                        name="name" 
                         placeholder="Name Of the Dish" 
                         onChange={handleChanges}
-                        value={form.recipeName}
+                        value={form.name}
                         required
                         />
                 </FormGroup>
@@ -66,29 +84,29 @@ const AddRecipeForm = (props) => {
                         />
                 </FormGroup>
 
-                {/* <FormGroup>
+                <FormGroup>
                     <Label for="recipe-ingredients">Ingredients</Label>
                     <Input 
                         type="textarea" 
-                        name="ingredients" 
+                        name="ingredient" 
                         placeholder="Olive, Pepper"
-                        onChange={handleChanges}
-                        value={props.recipe.ingredients}
+                        onChange={handleIngredients}
+                        value={ingredients.ingredient}
                         required
                     />
-                </FormGroup>
+                </FormGroup> 
             
                 <FormGroup>
                     <Label for="recipe-directions">Directions</Label>
                     <Input 
                         type="textarea" 
-                        name="instructions" 
+                        name="instruction" 
                         placeholder="How do you make it?"
-                        onChange={handleChanges}
-                        value={props.recipe.instructions}
+                        onChange={handleInstructions}
+                        value={instructions.instruction}
                         required
                     />
-                </FormGroup> */}
+                </FormGroup> 
                 <Button type="submit">Save Recipe</Button>
            
             </Form>
@@ -104,5 +122,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {addRecipe})(AddRecipeForm)
+export default connect(mapStateToProps, {addRecipe, submitEverything})(AddRecipeForm)
 

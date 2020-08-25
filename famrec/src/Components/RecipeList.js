@@ -7,7 +7,6 @@ class RecipeList extends React.Component {
         super(props);
     }
    
-
     routeToRecipe(e, recipe) {
         e.preventDefault();
         this.props.history.push(`/recipe-list/${recipe.id}`);

@@ -47,3 +47,37 @@ export const searchRecipeById = (recipeId) => (dispatch) => {
         dispatch({type:FETCH_RECIPES_FAILURE, payload: err})
     })
 }
+
+
+export const submitEverything = (recipe, ingredient, instruction) => (dispatch) => {
+
+    dispatch({type: FETCHING_RECIPES_START})
+    console.log('adding recipe')
+    axiosWithAuth()
+    .post('/api/recipes', recipe)
+    .then(res => {
+        console.log(res)
+        dispatch({type: FETCH_RECIPES_SUCCESS, payload: res.data})
+
+        console.log(res.data.id)
+        const id = res.data.id
+        axiosWithAuth()
+        .post(`/api/recipes/${res.data.id}/ingredients`, ingredient)
+        .then(response => {
+            console.log(response)
+        })
+        axiosWithAuth()
+        .post(`/api/recipes/${res.data.id}/instructions`, instruction)
+        .then(resp => {
+            console.log(resp)
+        })
+    })
+    .catch(err => {
+        console.error(err)
+        dispatch({type: FETCH_RECIPES_FAILURE, payload: err})
+    })
+
+    
+
+
+}

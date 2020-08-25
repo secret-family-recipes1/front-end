@@ -30,7 +30,7 @@ useEffect(() => {
 }, [])
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.clear(); 
     setIsLoggedIn(false)
     }
 
