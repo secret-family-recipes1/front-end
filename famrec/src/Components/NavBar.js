@@ -1,55 +1,41 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {toggleLogin} from '../store/actions/recipeActions'
-import {connect} from 'react-redux'
-
-
 import './NavBar.css';
 
-
-
 const NavBar = props => {
-
 
     return (
         <div className="navbar-wrapper">
             <div className="navbar-container">
                 <div className="link-container">
-                
                     { <Link to='/' class="links">
                         <h2>Home</h2>
                     </Link> }
                     
-                    <Link to='/signup' class="links">
-                        <h2>{props.isLoggedIn ? null : "Sign Up"}</h2>
-                    </Link>
-                    
-                    <Link to='/login' class="links">
-                        <h2>{props.isLoggedIn ? null : "Login"}</h2>
-                    </Link>
-
                      <Link to='/recipes' class="links">
-                        <h2>{props.isLoggedIn ? "Recipes" : null}</h2>
+                        {props.isLoggedIn ? <h2>Recipes</h2> : null}
                     </Link>
                     
                     <Link to='/add-recipe' class="links">
-                        <h2>{props.isLoggedIn ? "Add Recipe" : null}</h2>
+                        {props.isLoggedIn ? <h2>Add Recipe</h2> : null}
                     </Link>
                     
                     <Link to='/' onClick={props.logout} class="links" >
-                        <h2>{props.isLoggedIn ? "Logout" : null}</h2>
+                        {props.isLoggedIn ? <h2>Logout</h2> : null}
                     </Link> 
 
-                   
-
+                    <Link to='/signup' class="links">
+                        {props.isLoggedIn ? null : <h2>Sign Up</h2>}
+                    </Link>
+                    
+                    <Link to='/login' class="links">
+                        {props.isLoggedIn ? null : <h2>Login</h2>}
+                    </Link>
                 </div>
-
             </div>
-
         </div>
     );
 }
-
 
 export default NavBar
 
