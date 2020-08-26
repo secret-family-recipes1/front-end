@@ -17,15 +17,17 @@ div {
     margin-top: 2rem;
     margin-bottom: 2rem;
     /* border: 2px solid black; */
-    background-color: rgba(104, 104, 104, 0.8);
+    background-color: rgba(224, 220, 220, 0.9);
     box-shadow: 0 0 10px black, 0 0 5px;
-    color: white;
-    text-shadow: 2px 2px 3px black;
+    text-shadow: 2px 2px 3px white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 20px;
+    border: 3px solid black;
     img {
         width: 100%;
+        border-radius: 20px;
     }
     h2 {
         text-transform: capitalize;
@@ -39,7 +41,9 @@ div {
         width: 100%;
         padding: .5rem;
     }
-
+    button:nth-of-type(2){
+        margin-bottom: 0.75rem;
+    }
 }
 `
 
