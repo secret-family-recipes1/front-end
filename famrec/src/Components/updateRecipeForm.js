@@ -53,7 +53,6 @@ const UpdateRecipeForm = (props) => {
         axiosWithAuth()
         .get(`api/recipes/${id}/instructions`)
         .then(res => {
-            // console.log(res.data)
             setInstructions({...instructions, instruction: res.data.data[0].instruction , id: res.data.data[0].id})
         })
         .catch(err => {
@@ -63,9 +62,6 @@ const UpdateRecipeForm = (props) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log(ingredients)
-        console.log(ingredients.ingredient)
-        // console.log(ingredients.ingredient.ingredient)
         props.editEverything(form, ingredients.ingredient, instructions.instruction, ingredients.id, instructions.id)
         history.push('/recipes')
     }

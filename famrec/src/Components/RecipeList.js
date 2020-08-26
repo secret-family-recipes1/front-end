@@ -28,15 +28,10 @@ const history = useHistory()
                                  e.preventDefault()
                                     history.push(`/recipe/${recipe.id}/`)}}>
                          <CardBody>
+                            <img src={recipe.imageURL} alt='recipe image'></img>
                             <CardTitle className="addInfoInput">{recipe.name}</CardTitle>
                             <CardSubtitle>Category: {recipe.category}</CardSubtitle>
                            <CardSubtitle>From the kitchen of: {recipe.source}</CardSubtitle>
-                            <img src={recipe.imageURL} alt='recipe image'></img>
-                             <CardText>Ingredients: {recipe.ingredients}</CardText>
-                             <CardText>Instructions: {recipe.instructions}</CardText>
-                       
-                             {/* <Button onClick={}>Edit</Button>
-                             <Button onClick={}>Delete</Button> */}
                          </CardBody>
                         </Card>
                      </div>
