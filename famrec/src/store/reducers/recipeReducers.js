@@ -1,6 +1,8 @@
 import {FETCHING_RECIPES_START, 
     FETCH_RECIPES_SUCCESS, 
     FETCH_RECIPES_FAILURE, 
+    FETCH_INGREDIENTS_SUCCESS,
+    FETCH_INSTRUCTIONS_SUCCESS
     } from '../actions/recipeActions'
 
 
@@ -29,8 +31,17 @@ export const recipeReducer = (state = initialState, action) => {
                   ...state,
                   loading: false,
                   errors: action.payload,
-                  recpies: []
                 };
+            case FETCH_INGREDIENTS_SUCCESS:
+                return {
+                    ...state,
+                    loading: false
+                }
+                case FETCH_INSTRUCTIONS_SUCCESS:
+                    return {
+                        ...state,
+                        loading: false
+                    }
         default:
             return state;
     }

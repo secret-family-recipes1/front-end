@@ -1,8 +1,11 @@
-import {axiosWithAuth} from '../../utils/axiosWithAuth'
+import { axiosWithAuth } from '../../utils/axiosWithAuth'
 
 export const FETCHING_RECIPES_START = 'FETCHING_RECIPES_START'
 export const FETCH_RECIPES_SUCCESS = 'FETCH_RECIPES_SUCCESS' 
 export const FETCH_RECIPES_FAILURE = 'FETCH_RECIPES_FAILURE'
+export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS'
+export const FETCH_INSTRUCTIONS_SUCCESS = 'FETCH_INSTRUCTIONS_SUCCESS'
+
 
 export const getRecipes = () => (dispatch) => {
     dispatch({type: FETCHING_RECIPES_START})
@@ -56,25 +59,23 @@ export const submitEverything = (recipe, ingredient, instruction) => (dispatch) 
     axiosWithAuth()
     .post('/api/recipes', recipe)
     .then(res => {
-        console.log(res)
         dispatch({type: FETCH_RECIPES_SUCCESS, payload: res.data})
-
-        console.log(res.data.id)
-        const id = res.data.id
         axiosWithAuth()
         .post(`/api/recipes/${res.data.id}/ingredients`, ingredient)
         .then(response => {
             console.log(response)
+            dispatch({type: FETCH_INGREDIENTS_SUCCESS, payload: res.data})
         })
         axiosWithAuth()
         .post(`/api/recipes/${res.data.id}/instructions`, instruction)
         .then(resp => {
             console.log(resp)
+            dispatch({type: FETCH_INSTRUCTIONS_SUCCESS, payload: res.data})
         })
     })
     .catch(err => {
-        console.error(err)
         dispatch({type: FETCH_RECIPES_FAILURE, payload: err})
+        console.error(err)
     })
 }
 
@@ -105,6 +106,7 @@ export const editEverything = (recipe, ingredient, instruction, ingredientId, in
         axiosWithAuth()
         .put(`/api/recipes/${recipe.id}/ingredients/${ingredientId}`, {ingredient: ingredient})
         .then(response => {
+            dispatch({type: FETCH_INGREDIENTS_SUCCESS, payload: res.data})
             console.log(response)
         })
         .catch(err => {
@@ -113,6 +115,7 @@ export const editEverything = (recipe, ingredient, instruction, ingredientId, in
         axiosWithAuth()
         .put(`/api/recipes/${recipe.id}/instructions/${instructionId}`, {instruction: instruction})
         .then(resp => {
+            dispatch({type: FETCH_INSTRUCTIONS_SUCCESS, payload: res.data})
             console.log(resp)
         })
     })
