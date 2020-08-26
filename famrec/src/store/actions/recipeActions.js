@@ -76,8 +76,48 @@ export const submitEverything = (recipe, ingredient, instruction) => (dispatch) 
         console.error(err)
         dispatch({type: FETCH_RECIPES_FAILURE, payload: err})
     })
+}
 
-    
+export const deleteRecipe = (id) => (dispatch) => {
+    console.log('delete recipe by id')
+    console.log(id)
+    dispatch({type: FETCHING_RECIPES_START })
+    axiosWithAuth()
+    .delete(`/api/recipes/${id}`)
+    .then(res => {
+        console.log(res.data)
+        dispatch({type:FETCH_RECIPES_SUCCESS, payload: res.data})
+    })
+    .catch(err => {
+        console.log(err)
+        dispatch({type:FETCH_RECIPES_FAILURE, payload: err})
+    })
+}
 
-
+export const editEverything = (recipe, ingredient, instruction, ingredientId, instructionId) => (dispatch) => {
+    dispatch({type: FETCHING_RECIPES_START})
+    console.log('editing recipe')
+    axiosWithAuth()
+    .put(`/api/recipes/${recipe.id}`, recipe)
+    .then(res => {
+        console.log(res)
+        dispatch({type: FETCH_RECIPES_SUCCESS, payload: res.data})
+        axiosWithAuth()
+        .put(`/api/recipes/${recipe.id}/ingredients/${ingredientId}`, {ingredient: ingredient})
+        .then(response => {
+            console.log(response)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+        axiosWithAuth()
+        .put(`/api/recipes/${recipe.id}/instructions/${instructionId}`, {instruction: instruction})
+        .then(resp => {
+            console.log(resp)
+        })
+    })
+    .catch(err => {
+        console.error(err)
+        dispatch({type: FETCH_RECIPES_FAILURE, payload: err})
+    })
 }

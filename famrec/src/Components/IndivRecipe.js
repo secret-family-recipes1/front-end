@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom'
-import {searchRecipeById} from '../store/actions/recipeActions'
+import {useParams, useHistory} from 'react-router-dom'
+import {searchRecipeById, deleteRecipe} from '../store/actions/recipeActions'
 import {connect} from 'react-redux'
 
 
 const IndivRecipe = props => {
 const {id} = useParams()
+const history = useHistory()
 
 useEffect(() => {
     console.log(id)
  props.searchRecipeById(id)
 },[])
+
 
     return (
         <div>
@@ -21,6 +23,15 @@ useEffect(() => {
                 <p>Category: {props.recipes.category}</p>
                 <p>{props.recipes.ingredients}</p>
                 <p>{props.recipes.directions}</p>
+                <button onClick={(evt) => {
+                        evt.preventDefault()
+                        props.deleteRecipe(id)
+                        // history.push('/recipes')
+                }}>Delete</button>
+                <button onClick={(evt) => {
+                        evt.preventDefault()
+                        history.push(`/update-recipe/${id}`)
+                }}>Edit</button>
             </div>
         </div>
     )
@@ -32,5 +43,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {searchRecipeById})(IndivRecipe)
+export default connect(mapStateToProps, {searchRecipeById, deleteRecipe})(IndivRecipe)
 // export default IndivRecipe;

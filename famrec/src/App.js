@@ -8,6 +8,7 @@ import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import PrivateRoute from './Components/privateRoute'
 import AddRecipeForm from './Components/AddRecipeForm';
+import UpdateRecipeForm from './Components/updateRecipeForm'
 
 import Styled from 'styled-components'
 
@@ -54,6 +55,8 @@ useEffect(() => {
           <PrivateRoute exact path='/add-recipe' component={AddRecipeForm} />
 
           <PrivateRoute exact path='/recipe/:id' component={RecipeCard}/>
+
+          <PrivateRoute exact path='/update-recipe/:id' component={UpdateRecipeForm}/>
         </Switch>
         
       </StyledApp>

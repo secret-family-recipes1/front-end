@@ -15,19 +15,11 @@ const history = useHistory()
 
 return (
     <div>
-        {/* {(props.recipes != undefined && props.recipes.length > 0) ? (<div>{
-            props.recipes.map(recipe => {
-                return <p onClick={(e) => {
-                    e.preventDefault()
-                    history.push(`/recipe/${recipe.id}/`)
-                }} key={recipe.id}>{recipe.name}</p>
-            })
-            } </div>) : <p>No recipes</p> } */}
-            {(props.recipes != undefined && props.recipes.length > 0) ? (<div>{
-            props.recipes.map(recipe => {
-                return <RecipeCard recipe={recipe} key={recipe.id}/>
-            })
-            } </div>) : <p>No recipes</p> }
+        {(props.recipes != undefined && props.recipes.length > 0) ? (<div>{
+        props.recipes.map(recipe => {
+            return <RecipeCard recipe={recipe} key={recipe.id}/>
+        })
+        } </div>) : <p>No recipes</p> }
     </div>
 )
 }
