@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom'
+import React, {useState, useEffect} from 'react';
+import {useHistory, useParams} from 'react-router-dom'
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
-import {addRecipe, submitEverything} from '../store/actions/recipeActions'
+import {editEverything} from '../store/actions/recipeActions'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
 
 import {connect} from 'react-redux'
 
@@ -14,25 +15,62 @@ const initialValues = {
 }
 
 const ingredientsValues = {
-    ingredient: ''
+    ingredient: '',
+    id: ''
 }
 
 const instructionsValues = {
-    instruction: ''
+    instruction: '',
+    id: ''
 }
 
-const AddRecipeForm = (props) => {
+const UpdateRecipeForm = (props) => {
     const [form, setForm] = useState(initialValues)
     const [ingredients, setIngredients] = useState(ingredientsValues)
     const [instructions, setInstructions] = useState(instructionsValues)
 
+    const {id} = useParams()
     const history = useHistory()
+
+    useEffect(() => {
+        axiosWithAuth()
+        .get(`api/recipes/${id}`)
+        .then(res => {
+            setForm(res.data)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+        axiosWithAuth()
+        .get(`api/recipes/${id}/ingredients`)
+        .then(res => {
+            console.log(res.data.data[0])
+            setIngredients({...ingredients, ingredient: res.data.data[0].ingredient, id: res.data.data[0].id})
+        })
+        .catch(err => {
+            console.error(err)
+        })
+        axiosWithAuth()
+        .get(`api/recipes/${id}/instructions`)
+        .then(res => {
+            // console.log(res.data)
+            setInstructions({...instructions, instruction: res.data.data[0].instruction , id: res.data.data[0].id})
+        })
+        .catch(err => {
+            console.error(err)
+        })
+    }, [])
 
     const submitHandler = (e) => {
         e.preventDefault();
-        props.submitEverything(form, ingredients, instructions)
+        console.log(ingredients)
+        console.log(ingredients.ingredient)
+        // console.log(ingredients.ingredient.ingredient)
+        props.editEverything(form, ingredients.ingredient, instructions.instruction, ingredients.id, instructions.id)
         history.push('/recipes')
     }
+
+    console.log(ingredients.ingredient)
 
     const handleChanges = evt => {
         setForm({...form, [evt.target.name]: evt.target.value})
@@ -134,5 +172,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {addRecipe, submitEverything})(AddRecipeForm)
-
+export default connect(mapStateToProps, {editEverything})(UpdateRecipeForm)

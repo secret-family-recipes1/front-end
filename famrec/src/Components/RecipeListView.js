@@ -1,15 +1,14 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
 import {getRecipes} from '../store/actions/recipeActions'
+import {useHistory} from 'react-router-dom'
 
-
-import RecipeList from './RecipeList';
-// import AddRecipeForm from './AddRecipeForm'
-// import authenticate from './Authenticate'
+import RecipeCard from './RecipeList'
 
 
 const RecipeListView = (props) => {
 
+const history = useHistory()
     useEffect(() => {
         props.getRecipes()
     }, [])
@@ -17,13 +16,10 @@ const RecipeListView = (props) => {
 return (
     <div>
         {(props.recipes != undefined && props.recipes.length > 0) ? (<div>{
-            props.recipes.map(recipe => {
-                return <p>{recipe.recipeName}</p>
-            })
-            } </div>) : <p>No recipes</p> }
-        {/* // {props.recipes.map(recipe => { */}
-        {/* return <p>{recipe.recipeName}</p> */}
-        {/* })} */}
+        props.recipes.map(recipe => {
+            return <RecipeCard recipe={recipe} key={recipe.id}/>
+        })
+        } </div>) : <p>No recipes</p> }
     </div>
 )
 }
