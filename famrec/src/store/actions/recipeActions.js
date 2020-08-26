@@ -6,7 +6,7 @@ export const FETCH_RECIPES_FAILURE = 'FETCH_RECIPES_FAILURE'
 export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS'
 export const FETCH_INSTRUCTIONS_SUCCESS = 'FETCH_INSTRUCTIONS_SUCCESS'
 
-
+// Get all recipes from DB
 export const getRecipes = () => (dispatch) => {
     dispatch({type: FETCHING_RECIPES_START})
     axiosWithAuth()
@@ -21,6 +21,7 @@ export const getRecipes = () => (dispatch) => {
     })
 }
 
+// Add recipe to the DB (without instructions and ingredients)
 export const addRecipe = (recipe) => (dispatch) => {
     dispatch({type: FETCHING_RECIPES_START})
     console.log('adding recipe')
@@ -36,6 +37,7 @@ export const addRecipe = (recipe) => (dispatch) => {
     })
 }
 
+// Get single recipe from DB by ID
 export const searchRecipeById = (recipeId) => (dispatch) => {
     console.log('fetch recipe by id')
     dispatch({type: FETCHING_RECIPES_START })
@@ -51,9 +53,8 @@ export const searchRecipeById = (recipeId) => (dispatch) => {
     })
 }
 
-
+// Add recipe to the DB (instructions and ingredients inclusive)
 export const submitEverything = (recipe, ingredient, instruction) => (dispatch) => {
-
     dispatch({type: FETCHING_RECIPES_START})
     console.log('adding recipe')
     axiosWithAuth()
@@ -79,6 +80,7 @@ export const submitEverything = (recipe, ingredient, instruction) => (dispatch) 
     })
 }
 
+// Delete recipe from DB
 export const deleteRecipe = (id) => (dispatch) => {
     console.log('delete recipe by id')
     console.log(id)
@@ -95,6 +97,7 @@ export const deleteRecipe = (id) => (dispatch) => {
     })
 }
 
+// Edit recipe (instructions and ingredients inclusive)
 export const editEverything = (recipe, ingredient, instruction, ingredientId, instructionId) => (dispatch) => {
     dispatch({type: FETCHING_RECIPES_START})
     console.log('editing recipe')

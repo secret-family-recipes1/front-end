@@ -21,6 +21,7 @@ const instructionsValues = {
     instruction: ''
 }
 
+// Add new recipe form
 const AddRecipeForm = (props) => {
     const [form, setForm] = useState(initialValues)
     const [ingredients, setIngredients] = useState(ingredientsValues)

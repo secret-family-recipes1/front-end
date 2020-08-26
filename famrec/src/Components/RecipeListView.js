@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux'
 import {getRecipes} from '../store/actions/recipeActions'
 import {useHistory} from 'react-router-dom'
@@ -18,22 +18,41 @@ div {
 }
 `
 
-
+// Recipe list component for recipes page
 const RecipeListView = (props) => {
+    const [search, setSearch] = useState('')
 
-const history = useHistory()
-    useEffect(() => {
-        props.getRecipes()
-    }, [])
+    const history = useHistory()
+
+        useEffect(() => {
+            props.getRecipes()
+        }, [])
+
+        const handleSearch = evt => {
+            evt.preventDefault()
+            setSearch(evt.target.value)
+        }
 
 return (
+    <div>
+        <input
+        placeholder='Search'
+        name='search'
+        onChange={handleSearch}
+        value={search}
+        ></input>
     <StyledDiv>
         {(props.recipes != undefined && props.recipes.length > 0) ? (<div>{
-        props.recipes.map(recipe => {
+        props.recipes
+        .filter(recipe => {
+            return recipe.name.includes(search)
+        })
+        .map(recipe => {
             return <RecipeCard recipe={recipe} key={recipe.id}/>
         })
         } </div>) : <p>No recipes</p> }
     </StyledDiv>
+    </div>
 )
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom'
 import Styled from 'styled-components'
 
-import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button , CardImg} from 'reactstrap';
 
 const StyledDiv = Styled.div`
 &:hover {
@@ -30,6 +29,7 @@ h2 {
 }
 `
 
+// Recipe card for each recipe that displays on recipesList component
 const RecipeList = props => {
     const { recipe } = props
     const history = useHistory()

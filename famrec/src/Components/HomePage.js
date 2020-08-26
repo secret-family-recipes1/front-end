@@ -10,7 +10,7 @@ margin: 2rem auto;
 text-align: center;
 `
 
-
+// Home page
 const HomePage = () => {
 
         return (

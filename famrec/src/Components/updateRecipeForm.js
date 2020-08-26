@@ -3,7 +3,6 @@ import {useHistory, useParams} from 'react-router-dom'
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {editEverything} from '../store/actions/recipeActions'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
-
 import {connect} from 'react-redux'
 
 
@@ -24,6 +23,7 @@ const instructionsValues = {
     id: ''
 }
 
+// Edit recipe form
 const UpdateRecipeForm = (props) => {
     const [form, setForm] = useState(initialValues)
     const [ingredients, setIngredients] = useState(ingredientsValues)
@@ -32,6 +32,7 @@ const UpdateRecipeForm = (props) => {
     const {id} = useParams()
     const history = useHistory()
 
+    // Pulls the recipe, recipe instructions and ingredients on page render and populates the form
     useEffect(() => {
         axiosWithAuth()
         .get(`api/recipes/${id}`)
@@ -60,13 +61,12 @@ const UpdateRecipeForm = (props) => {
         })
     }, [])
 
+    // Submits new information to action creator to dispatch put request
     const submitHandler = (e) => {
         e.preventDefault();
         props.editEverything(form, ingredients.ingredient, instructions.instruction, ingredients.id, instructions.id)
         history.push(`/recipe/${id}/`)
     }
-
-    console.log(ingredients.ingredient)
 
     const handleChanges = evt => {
         setForm({...form, [evt.target.name]: evt.target.value})

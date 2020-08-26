@@ -47,7 +47,7 @@ div {
 }
 `
 
-
+// Show specific recipe by ID page
 const IndivRecipe = props => {
     const [ingredients, setIngredients] = useState()
     const [instructions, setInstructions] = useState()
@@ -55,21 +55,29 @@ const IndivRecipe = props => {
     const {id} = useParams()
     const history = useHistory()
 
+    // Pulls the ingredients and instructions for the specific recipe from backend on render
     useEffect(() => {
+        console.log(id)
+        // searches recipe by ID using action creator
+        props.searchRecipeById(id)
+        // Searches recipe's ingredients
         axiosWithAuth()
         .get(`api/recipes/${id}/ingredients`)
         .then(res => {
             console.log(res.data.data[0].ingredient)
+            // Turn string of instructions into an array that can be looped through in jsx
             const ingredArr = res.data.data[0].ingredient.split(',')
             setIngredients(ingredArr)
         })
         .catch(err => {
             console.error(err)
         })
+        // Searches recipe's instructions
         axiosWithAuth()
         .get(`api/recipes/${id}/instructions`)
         .then(res => {
             console.log(res.data.data)
+             // Turn string of instructions into an array that can be looped through in jsx
             const instructionsArray = res.data.data[0].instruction.split(',')
             setInstructions(instructionsArray)
         })
@@ -77,12 +85,6 @@ const IndivRecipe = props => {
             console.error(err)
         })
     }, [])
-
-    useEffect(() => {
-        console.log(id)
-    props.searchRecipeById(id)
-    },[])
-
 
     return (
         <StyledDiv>

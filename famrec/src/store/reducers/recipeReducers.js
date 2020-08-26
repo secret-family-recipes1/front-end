@@ -12,6 +12,7 @@ const initialState = {
     errors: '',
 }
 
+// Reducer for recipe actions
 export const recipeReducer = (state = initialState, action) => {
     switch(action.type) {
         case FETCHING_RECIPES_START: 
