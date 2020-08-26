@@ -31,21 +31,21 @@ const SignUp = props => {
 
 	const update = (e) => {
 		const { name, value } = e.target
-		// yup
-		// .reach(FormSchema, name)
-		// .validate(value)
-		// .then(valid => {
-		//   setFormErrors({
-		// 	...formErrors,
-		// 	[name]: "",
-		//   })
-		// })
-		// .catch(err => {
-		//   setFormErrors({
-		// 	...formErrors,
-		// 	[name]: err.errors[0],
-		//   })
-		// })
+		yup
+		.reach(FormSchema, name)
+		.validate(value)
+		.then(valid => {
+		  setFormErrors({
+			...formErrors,
+			[name]: "",
+		  })
+		})
+		.catch(err => {
+		  setFormErrors({
+			...formErrors,
+			[name]: err.errors[0],
+		  })
+		})
   
 	  setFormValues({
 		...formValues,
