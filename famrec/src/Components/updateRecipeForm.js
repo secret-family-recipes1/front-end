@@ -63,7 +63,7 @@ const UpdateRecipeForm = (props) => {
     const submitHandler = (e) => {
         e.preventDefault();
         props.editEverything(form, ingredients.ingredient, instructions.instruction, ingredients.id, instructions.id)
-        // history.push(`/recipe/${id}/`)
+        history.push(`/recipe/${id}/`)
     }
 
     console.log(ingredients.ingredient)
