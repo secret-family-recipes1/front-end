@@ -10,8 +10,11 @@ const initialState = {
     recipes: [],
     loading: false,
     errors: '',
+    ingredients: '',
+    instructions: '',
 }
 
+// Reducer for recipe actions
 export const recipeReducer = (state = initialState, action) => {
     switch(action.type) {
         case FETCHING_RECIPES_START: 
@@ -26,22 +29,24 @@ export const recipeReducer = (state = initialState, action) => {
               loading: false,
               recipes: action.payload,
             };
-            case FETCH_RECIPES_FAILURE:
-                return {
-                  ...state,
-                  loading: false,
-                  errors: action.payload,
-                };
-            case FETCH_INGREDIENTS_SUCCESS:
-                return {
-                    ...state,
-                    loading: false
-                }
-                case FETCH_INSTRUCTIONS_SUCCESS:
-                    return {
-                        ...state,
-                        loading: false
-                    }
+        case FETCH_RECIPES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                errors: action.payload,
+            };
+        case FETCH_INGREDIENTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                ingredients: action.payload
+            }
+        case FETCH_INSTRUCTIONS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                instructions: action.payload
+            }
         default:
             return state;
     }

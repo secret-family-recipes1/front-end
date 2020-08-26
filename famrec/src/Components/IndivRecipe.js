@@ -17,15 +17,17 @@ div {
     margin-top: 2rem;
     margin-bottom: 2rem;
     /* border: 2px solid black; */
-    background-color: rgba(104, 104, 104, 0.8);
+    background-color: rgba(224, 220, 220, 0.9);
     box-shadow: 0 0 10px black, 0 0 5px;
-    color: white;
-    text-shadow: 2px 2px 3px black;
+    text-shadow: 2px 2px 3px white;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 20px;
+    border: 3px solid black;
     img {
         width: 100%;
+        border-radius: 20px;
     }
     h2 {
         text-transform: capitalize;
@@ -39,11 +41,13 @@ div {
         width: 100%;
         padding: .5rem;
     }
-
+    button:nth-of-type(2){
+        margin-bottom: 0.75rem;
+    }
 }
 `
 
-
+// Show specific recipe by ID page
 const IndivRecipe = props => {
     const [ingredients, setIngredients] = useState()
     const [instructions, setInstructions] = useState()
@@ -51,34 +55,36 @@ const IndivRecipe = props => {
     const {id} = useParams()
     const history = useHistory()
 
+    // Pulls the ingredients and instructions for the specific recipe from backend on render
     useEffect(() => {
+        console.log(id)
+        // searches recipe by ID using action creator
+        props.searchRecipeById(id)
+        // Searches recipe's ingredients
         axiosWithAuth()
         .get(`api/recipes/${id}/ingredients`)
         .then(res => {
             console.log(res.data.data[0].ingredient)
+            // Turn string of instructions into an array that can be looped through in jsx
             const ingredArr = res.data.data[0].ingredient.split(',')
             setIngredients(ingredArr)
         })
         .catch(err => {
             console.error(err)
         })
+        // Searches recipe's instructions
         axiosWithAuth()
         .get(`api/recipes/${id}/instructions`)
         .then(res => {
             console.log(res.data.data)
+             // Turn string of instructions into an array that can be looped through in jsx
             const instructionsArray = res.data.data[0].instruction.split(',')
             setInstructions(instructionsArray)
         })
         .catch(err => {
             console.error(err)
         })
-    }, [])
-
-    useEffect(() => {
-        console.log(id)
-    props.searchRecipeById(id)
-    },[])
-
+    }, [props.ingredients, props.instructions])
 
     return (
         <StyledDiv>
@@ -116,7 +122,9 @@ const IndivRecipe = props => {
 const mapStateToProps = state => {
     return {
         recipes: state.recipes,
-        erros: state.errors
+        erros: state.errors,
+        ingredients: state.ingredients,
+        instructions: state.instructions
     }
 }
 
