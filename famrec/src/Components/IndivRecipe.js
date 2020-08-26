@@ -84,7 +84,7 @@ const IndivRecipe = props => {
         .catch(err => {
             console.error(err)
         })
-    }, [])
+    }, [props.ingredients, props.instructions])
 
     return (
         <StyledDiv>
@@ -122,7 +122,9 @@ const IndivRecipe = props => {
 const mapStateToProps = state => {
     return {
         recipes: state.recipes,
-        erros: state.errors
+        erros: state.errors,
+        ingredients: state.ingredients,
+        instructions: state.instructions
     }
 }
 

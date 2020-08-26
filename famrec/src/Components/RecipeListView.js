@@ -51,7 +51,7 @@ return (
         value={search}
         ></StyledSearch>
         <StyledDiv>
-            {(props.recipes != undefined && props.recipes.length > 0) ? (<div>{
+            {(props.recipes && props.recipes != undefined && props.recipes.length > 0) ? (<div>{
             props.recipes
             .filter(recipe => {
                 return (recipe.name.includes(search) || recipe.category.includes(search))
@@ -68,7 +68,8 @@ return (
 const mapStateToProps = state => {
     return {
         recipes: state.recipes,
-        erros: state.errors
+        erros: state.errors,
+        loading: state.loading
     }
 }
 
