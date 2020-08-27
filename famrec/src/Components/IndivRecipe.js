@@ -4,6 +4,8 @@ import {searchRecipeById, deleteRecipe} from '../store/actions/recipeActions'
 import { connect } from 'react-redux'
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import Styled from 'styled-components'
+import Loader from 'react-loader-spinner'
+
 
 const StyledDiv = Styled.div`
 width: 100%;
@@ -100,6 +102,15 @@ const IndivRecipe = props => {
 
     return (
         <StyledDiv>
+            {props.loading ? <Loader
+                                        id='customLoader'
+                                        type="ThreeDots"
+                                        color="#827ffe"
+                                        height={300}
+                                        width={300}
+                                        timeout={5000} //5 secs
+
+                                    /> : 
             <div>
                 <img src={props.recipes.imageURL} alt='recipe image'></img>
                 <h2>{props.recipes.name}</h2>
@@ -127,7 +138,7 @@ const IndivRecipe = props => {
                         props.deleteRecipe(id)
                         history.push('/recipes')
                 }}>Delete</button>
-            </div>
+            </div> }
         </StyledDiv>
     )
 }
@@ -136,7 +147,8 @@ const mapStateToProps = state => {
         recipes: state.recipes,
         erros: state.errors,
         ingredients: state.ingredients,
-        instructions: state.instructions
+        instructions: state.instructions,
+        loading: state.loading
     }
 }
 

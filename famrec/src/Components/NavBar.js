@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import '../styles/NavBar.css';
 import Styled from 'styled-components'
 
@@ -22,8 +22,16 @@ a {
     text-decoration: none;
     text-transform: uppercase;
     margin-bottom: 0;
+    margin-left: 0;
+    color: black;
     &:hover{
         text-decoration: none;
+        color: #827ffe;
+    }
+}
+.active-nav{
+    h2 {
+        background-color: black;
         color: #827ffe;
     }
 }
@@ -36,25 +44,25 @@ const NavBar = props => {
         <StyledNav className="navbar-wrapper">
             <div className="navbar-container">
                 <div className="link-container">
-                    <Link to='/' class="links">
-                        <h2>Home</h2>
-                    </Link> 
+                    <NavLink activeClassName='active-nav' to='/' class="links">
+                    <h2>Home</h2>
+                    </NavLink> 
                     
-                    <Link to='/add-recipe' class="links">
+                    <NavLink activeClassName='active-nav' to='/add-recipe' class="links">
                         {props.isLoggedIn ? <h2>Add Recipe</h2> : null}
-                    </Link>
+                    </NavLink>
                     
-                    <Link to='/' onClick={props.logout} class="links" >
+                    <NavLink activeClassName='active-nav' to='/' onClick={props.logout} class="links" >
                         {props.isLoggedIn ? <h2>Logout</h2> : null}
-                    </Link> 
+                    </NavLink> 
 
-                    <Link to='/signup' class="links">
+                    <NavLink activeClassName='active-nav' to='/signup' class="links">
                         {props.isLoggedIn ? null : <h2>Sign Up</h2>}
-                    </Link>
+                    </NavLink>
                     
-                    <Link to='/login' class="links">
+                    <NavLink activeClassName='active-nav' to='/login' class="links">
                         {props.isLoggedIn ? null : <h2>Login</h2>}
-                    </Link>
+                    </NavLink>
                 </div>
             </div>
         </StyledNav>

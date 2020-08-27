@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getRecipes} from '../store/actions/recipeActions'
 import {useHistory} from 'react-router-dom'
 import Styled from 'styled-components'
+import Loader from 'react-loader-spinner'
 
 import RecipeCard from './RecipeList'
 
@@ -20,7 +21,7 @@ border: 2px solid black;
     border: 3px solid #827ffe;
     transition: 0.5s;
     transform: scale(1.1);
-    box-shadow: 0 0 10px ##827ffe;
+    box-shadow: 0 0 10px #827ffe;
 }
 `
 
@@ -33,6 +34,9 @@ div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+#customLoader{
+    margin: 0 auto;
 }
 `
 
@@ -62,7 +66,16 @@ return (
         value={search}
         ></StyledSearch>
         <StyledDiv>
-            {(props.recipes && props.recipes != undefined && props.recipes.length > 0) ? (<div>{
+            {props.loading ? <Loader
+                                        id='customLoader'
+                                        type="ThreeDots"
+                                        color="#827ffe"
+                                        height={300}
+                                        width={300}
+                                        timeout={5000} //5 secs
+
+                                    /> : null}
+            {(props.recipes && props.recipes != undefined && props.recipes.length > 0 && !props.loading) ? (<div>{
             props.recipes
             .filter(recipe => {
                 return (recipe.name.includes(search) || recipe.category.includes(search))
@@ -70,7 +83,7 @@ return (
             .map(recipe => {
                 return <RecipeCard recipe={recipe} key={recipe.id}/>
             })
-            } </div>) : <p>No recipes</p> }
+            } </div>) : null}
         </StyledDiv>
     </div>
 )
