@@ -1,35 +1,4 @@
-/* .App {
-  text-align: center;
-}
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: black;
-}
-
-.loginForm{
-  align-content: center;
-  align-items: center; 
-  justify-content: space-around;
-  font-family:'Courier New', Courier, monospace;
-  margin:20% auto; 
-  width: 500px;
-  background-color: gray;
-  padding: 30px;
-  border-radius: 40px;
-  color: white;
-  text-transform: uppercase;
-  font-size: 20px;
-} */
 * {
   box-sizing: border-box;
 }

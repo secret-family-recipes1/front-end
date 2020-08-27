@@ -29,7 +29,7 @@ const StyledDiv = Styled.div`
 display: flex;
 justify-content: center;
 width: 100%;
-div {
+div#recipeList {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -75,7 +75,7 @@ return (
                                         timeout={5000} //5 secs
 
                                     /> : null}
-            {(props.recipes && props.recipes != undefined && props.recipes.length > 0 && !props.loading) ? (<div>{
+            {(props.recipes && props.recipes != undefined && props.recipes.length > 0 && !props.loading) ? (<div id='recipeList'>{
             props.recipes
             .filter(recipe => {
                 return (recipe.name.includes(search) || recipe.category.includes(search))
