@@ -29,6 +29,7 @@ const StyledDiv = Styled.div`
 display: flex;
 justify-content: center;
 width: 100%;
+flex-wrap: wrap;
 div#recipeList {
     width: 100%;
     display: flex;

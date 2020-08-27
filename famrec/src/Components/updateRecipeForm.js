@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useHistory, useParams} from 'react-router-dom'
 import {editEverything} from '../store/actions/recipeActions'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import {connect} from 'react-redux'
 import Styled from 'styled-components'
+import {TweenMax, TimelineLite, Power3} from 'gsap'
+
 
 const StyledForm = Styled.div`
 width: 60%;
@@ -84,6 +86,9 @@ const UpdateRecipeForm = (props) => {
     const {id} = useParams()
     const history = useHistory()
 
+    let app = useRef(null) 
+    let tl = new TimelineLite()
+
     // Pulls the recipe, recipe instructions and ingredients on page render and populates the form
     useEffect(() => {
         axiosWithAuth()
@@ -111,6 +116,11 @@ const UpdateRecipeForm = (props) => {
         .catch(err => {
             console.error(err)
         })
+
+        TweenMax.to(app, 0, {css: {visibility: 'visible'}})
+        tl.from(app, 1.2, {y: 1280, ease: Power3.easeOut})
+        .from(app, 2, {rotate:15, ease: Power3.easeOut}, .3)
+        .from(app, 2, {scale:1.1, ease: Power3.easeOut}, .3)
     }, [])
 
     // Submits new information to action creator to dispatch put request
@@ -131,7 +141,7 @@ const UpdateRecipeForm = (props) => {
     }
 
     return (
-        <StyledForm>
+        <StyledForm ref={el => app = el}>
             <form onSubmit={submitHandler}>
                 <label htmlFor='name'>Recipe Name
                     <input 

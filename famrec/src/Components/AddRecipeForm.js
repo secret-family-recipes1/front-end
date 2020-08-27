@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useHistory} from 'react-router-dom'
 import {addRecipe, submitEverything} from '../store/actions/recipeActions'
 import {connect} from 'react-redux'
 import Styled from 'styled-components'
+import {TweenMax, TimelineLite, Power3} from 'gsap'
 
 const StyledForm = Styled.div`
 width: 60%;
@@ -96,8 +97,22 @@ const AddRecipeForm = (props) => {
         setInstructions({...instructions, [evt.target.name]: evt.target.value})
     }
 
+    let app = useRef(null) 
+    
+    let tl = new TimelineLite()
+    
+    useEffect(() => {
+        // console.log(app)
+        TweenMax.to(app, 0, {css: {visibility: 'visible'}})
+        tl.from(app, 1.2, {y: 1280, ease: Power3.easeOut})
+        .from(app, 2, {rotate:15, ease: Power3.easeOut}, .3)
+        .from(app, 2, {scale:1.1, ease: Power3.easeOut}, .3)
+
+    }, [])
+        
+
     return (
-        <StyledForm>
+        <StyledForm ref={el => app = el}>
             <form onSubmit={submitHandler}>
                 <label htmlFor='name'>Recipe Name
                     <input 
