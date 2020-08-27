@@ -17,21 +17,24 @@ div {
     margin-top: 2rem;
     margin-bottom: 2rem;
     /* border: 2px solid black; */
-    background-color: rgba(224, 220, 220, 0.9);
-    box-shadow: 0 0 10px black, 0 0 5px;
-    text-shadow: 2px 2px 3px white;
+    background-color: rgba(65, 65, 65, 0.9);
+    box-shadow: 0 0 10px #827ffe, 0 0 5px #827ffe;
+    text-shadow: 2px 2px 3px black;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
     border: 3px solid black;
+    color: white;
+    overflow: hidden;
     img {
         width: 100%;
-        border-radius: 20px;
+        border-radius: 20px 20px 0 0;
     }
     h2 {
         text-transform: capitalize;
         margin: 1rem 0;
+        color: #827ffe;
     }
     ul, ol {
         /* list-style-position: inside; */
@@ -40,9 +43,18 @@ div {
     button {
         width: 100%;
         padding: .5rem;
+        border: none;
+        &:hover {
+            transform: scale(1.1);
+        }
     }
-    button:nth-of-type(2){
-        margin-bottom: 0.75rem;
+    #edit {
+        background-color: rgba(231, 167, 0, 0.7);
+        margin-top: 4rem;
+    }
+    #delete {
+        background-color: rgba(197, 0, 0, 0.7);
+        border-radius: 0 0 20px 20px;
     }
 }
 `
@@ -106,11 +118,11 @@ const IndivRecipe = props => {
                 }): <p>No instructions are available for this recipe</p>}
                 </ol>
                {/* <p>{instructions}</p> */}
-                <button onClick={(evt) => {
+                <button id='edit' onClick={(evt) => {
                     evt.preventDefault()
                     history.push(`/update-recipe/${id}`)
                 }}>Edit</button>
-                <button onClick={(evt) => {
+                <button id='delete' onClick={(evt) => {
                         evt.preventDefault()
                         props.deleteRecipe(id)
                         history.push('/recipes')
