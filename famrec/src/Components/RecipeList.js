@@ -34,6 +34,7 @@ img {
     margin: 0;
     padding: 0;
     border-radius: 20px;
+    height: 200px;
 }
 h2.cardHeader {
     font-size: 2rem;

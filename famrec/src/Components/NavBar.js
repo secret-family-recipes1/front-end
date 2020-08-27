@@ -44,7 +44,7 @@ const NavBar = props => {
         <StyledNav className="navbar-wrapper">
             <div className="navbar-container">
                 <div className="link-container">
-                    <NavLink activeClassName='active-nav' to='/' class="links">
+                    <NavLink activeClassName='active-nav' to='/recipes' class="links">
                     <h2>Home</h2>
                     </NavLink> 
                     
