@@ -12,7 +12,7 @@
 .navbar-container {
     display: flex;
     justify-content: space-around;
-    align-items: space-between;
+    align-items: center;
     align-content: center;
     width: 100%;
     max-width: 950px;
@@ -23,6 +23,11 @@
 .link-container {    
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 0 1.5rem;
-    height: 40px;
+    background-color: #827ffe;
+    padding: 0.5rem;
+    border-radius: 20px;
+    box-shadow: 0 0 10px black;
+    text-align: center;
 } 
