@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useParams, useHistory} from 'react-router-dom'
 import {searchRecipeById, deleteRecipe} from '../store/actions/recipeActions'
 import { connect } from 'react-redux'
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import Styled from 'styled-components'
 import Loader from 'react-loader-spinner'
+import {TweenMax, TimelineLite, Power3} from 'gsap'
 
 
 const StyledDiv = Styled.div`
@@ -100,8 +101,21 @@ const IndivRecipe = props => {
         })
     }, [props.ingredients, props.instructions])
 
+    let app = useRef(null) 
+    let tl = new TimelineLite()
+    
+    useEffect(() => {
+        // console.log(app)
+        TweenMax.to(app, 0, {css: {visibility: 'visible'}})
+        tl.from(app, 1.2, {y: 1280, ease: Power3.easeOut})
+        .from(app, 2, {rotate:15, ease: Power3.easeOut}, .3)
+        .from(app, 2, {scale:1.1, ease: Power3.easeOut}, .3)
+
+    }, [])
+        
+
     return (
-        <StyledDiv>
+        <StyledDiv ref={el => app = el}>
             {props.loading ? <Loader
                                         id='customLoader'
                                         type="ThreeDots"
