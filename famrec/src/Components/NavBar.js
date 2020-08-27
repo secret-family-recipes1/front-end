@@ -1,12 +1,35 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import '../styles/NavBar.css';
+import Styled from 'styled-components'
+
+const StyledNav = Styled.div`
+h2 {
+    border: none;
+    padding: 0.25rem 1.5rem;
+    border-radius: 20px;
+    background-color: #827ffe;
+    font-size: 1.5rem;
+    &:hover{
+        transition: 0.5s;
+        background-color: black;
+        box-shadow: 0 0 10px #827ffe;
+    }
+}
+a {
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+        color: #827ffe;
+    }
+}
+`
 
 // Nav Bar
 const NavBar = props => {
 
     return (
-        <div className="navbar-wrapper">
+        <StyledNav className="navbar-wrapper">
             <div className="navbar-container">
                 <div className="link-container">
                     <Link to='/' class="links">
@@ -30,7 +53,7 @@ const NavBar = props => {
                     </Link>
                 </div>
             </div>
-        </div>
+        </StyledNav>
     );
 }
 

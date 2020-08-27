@@ -40,7 +40,7 @@ useEffect(() => {
 
       {/* Home page, redirects to login if not logged in, or recipes page when logged in */}
         <Switch>
-           <Route exact path='/'>
+          <Route exact path='/'>
             <Redirect to='/recipes'/>
           </Route>
 
@@ -64,7 +64,6 @@ useEffect(() => {
           {/* Edit recipe form */}
           <PrivateRoute exact path='/update-recipe/:id' component={UpdateRecipeForm}/>
         </Switch>
-        
       </StyledApp>
     );
 }

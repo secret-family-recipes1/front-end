@@ -1,9 +1,61 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory, useParams} from 'react-router-dom'
-import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import {editEverything} from '../store/actions/recipeActions'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import {connect} from 'react-redux'
+import Styled from 'styled-components'
+
+const StyledForm = Styled.div`
+width: 60%;
+max-width: 700px;
+margin: 2rem auto;
+padding: 4rem 3rem;
+border: 3px solid black;
+border-radius: 20px;
+background-color: rgba(65, 65, 65, 0.9);
+box-shadow: 0 0 10px #827ffe;
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    input, textarea, label {
+        width: 100%;
+    }
+    input, textarea{
+        &:focus, &:hover{
+            outline: none;
+            border: 2px solid #827ffe;
+        }
+    }
+    label {
+        color: white;
+        text-shadow: 2px 2px black;
+    }
+    textarea {
+        padding: 1rem;
+        background-color: #e6e6e6;
+        color: #827ffe;
+        font-size: 16px;
+        margin-bottom: 20px;
+        border: none;
+    }
+    button {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        outline: none;
+        font-size: 1.35rem;
+        background-color: rgba(1, 255, 9, 0.9);
+        &:hover{
+            transition: 0.5s;
+            transform: scale(1.1);
+            background-color: #827ffe;
+            box-shadow: 0 0 10px rgb(1, 255, 9);
+        }
+    }
+}
+`
 
 
 const initialValues = {
@@ -79,84 +131,64 @@ const UpdateRecipeForm = (props) => {
     }
 
     return (
-        <div className="recipesForm">
-
-            <Form className= "recipesForm" onSubmit={submitHandler}>
-
-                <FormGroup>
-                    <Label for="recipe-title">Recipe Name</Label>
-                    <Input 
+        <StyledForm>
+            <form onSubmit={submitHandler}>
+                <label htmlFor='name'>Recipe Name
+                    <input 
                         type="text" 
                         name="name" 
                         placeholder="Name Of the Dish" 
                         onChange={handleChanges}
                         value={form.name}
                         required
-                        />
-                </FormGroup>
-
-                <FormGroup class= "recipesForm">
-                        <Label for="recipe-category">Recipe Category</Label>
-                            <Input class= "recipesForm"
-                                type="text" 
-                                name="category" 
-                                placeholder="Breakfast, Lunch, Dinner" 
-                                onChange={handleChanges}
-                                value={form.category}
-                                required
-                            />
-                </FormGroup>
-            
-                <FormGroup>
-                    <Label for="recipe-source">Recipe Source</Label>
-                    <Input 
+                        ></input></label>
+                <label htmlFor='category'>Recipe Category
+                    <input
+                        type="text" 
+                        name="category" 
+                        placeholder="Breakfast, Lunch, Dinner" 
+                        onChange={handleChanges}
+                        value={form.category}
+                        required
+                    ></input></label>
+                <label htmlFor='source'>Recipe Source
+                    <input 
                         type="text" 
                         name="source" 
                         placeholder="Grandma's" 
                         onChange={handleChanges}
                         value={form.source}
                         required
-                        />
-                </FormGroup>
-
-                <FormGroup>
-                    <Label for="recipe-image">Image</Label>
-                    <Input 
+                        ></input></label>
+                <label htmlFor='image'>Image
+                    <input 
                         type="text" 
                         name="imageURL" 
                         placeholder="URL of image" 
                         onChange={handleChanges}
                         value={form.imageURL}
-                        />
-                </FormGroup>
-
-                <FormGroup>
-                    <Label for="recipe-ingredients">Ingredients</Label>
-                    <Input 
-                        type="textarea" 
+                        ></input></label>
+                <label htmlFor='ingredients'>Ingredients
+                    <textarea 
+                        rows='4'
+                        type="text" 
                         name="ingredient" 
                         placeholder="Olive, Pepper"
                         onChange={handleIngredients}
                         value={ingredients.ingredient}
-                        required
-                    />
-                </FormGroup> 
-            
-                <FormGroup>
-                    <Label for="recipe-directions">Directions</Label>
-                    <Input 
-                        type="textarea" 
+                    ></textarea> </label>
+                <label htmlFor='instructions'>Instructions
+                    <textarea 
+                        rows='4'
+                        type="text" 
                         name="instruction" 
                         placeholder="How do you make it?"
                         onChange={handleInstructions}
                         value={instructions.instruction}
-                        required
-                    />
-                </FormGroup> 
-                <Button type="submit">Save Recipe</Button>
-           
-            </Form>
-        </div>
+                    ></textarea> </label>
+                <button>Edit Recipe</button>
+            </form>
+        </StyledForm>
     )
     
 }
