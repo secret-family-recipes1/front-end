@@ -26,10 +26,6 @@ code {
   color:white;
   }
 
-.navbar-wrapper { 
-  background: gray;
-}
-
 .navbar-container {
   display: flex;
   justify-content: space-around;
@@ -46,29 +42,11 @@ code {
   height: 25%;
 }
 
-.recipesForm{
-  display: flex;
-  align-content: center;
-  align-items: center; 
-  justify-content: space-around;
-  font-family:'Courier New', Courier, monospace;
-  margin: 20px auto; 
-  flex-direction: column;
-  align-content: center;
-  align-items: center; 
-  justify-content: space-around;
-  background-color: gray;
-  border: 2px solid black;
-  width:400px;
-  height: 600px;
-  border-radius: 15px;
-  
-}
 .recipe-card-list{
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
-  align-items: center; 
+  /* align-content: center;
+  align-items: center;  */
   font-family:'Courier New', Courier, monospace;
   background-color: rgba(224, 220, 220, 0.9);
   border-radius: 20px;

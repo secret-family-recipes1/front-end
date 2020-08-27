@@ -19,6 +19,7 @@ box-shadow: 0 0 10px #827ffe;
 background-color: rgba(65, 65, 65, 0.9);
 color: white;
 text-shadow: 2px 2px 4px black;
+border-radius: 20px;
 img {
     width: 100%;
     margin: 0;
@@ -26,7 +27,7 @@ img {
     border-radius: 20px;
 }
 h2.cardHeader {
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
     font-size: 2rem;
     width: 100%;
     text-shadow: 2px 2px 4px black;

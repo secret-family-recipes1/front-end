@@ -4,12 +4,14 @@ import '../styles/NavBar.css';
 import Styled from 'styled-components'
 
 const StyledNav = Styled.div`
+margin-bottom: 2rem;
 h2 {
     border: none;
     padding: 0.25rem 1.5rem;
     border-radius: 20px;
     background-color: #827ffe;
     font-size: 1.5rem;
+    margin-bottom: 0;
     &:hover{
         transition: 0.5s;
         background-color: black;
@@ -18,6 +20,8 @@ h2 {
 }
 a {
     text-decoration: none;
+    text-transform: uppercase;
+    margin-bottom: 0;
     &:hover{
         text-decoration: none;
         color: #827ffe;
