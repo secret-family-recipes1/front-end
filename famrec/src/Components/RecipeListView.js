@@ -11,7 +11,8 @@ const StyledSearch = Styled.input`
 text-align: center;
 border-radius: 20px;
 padding: 0.33rem;
-width: 33%;
+width: 40%;
+min-width: 250px;
 margin: 2rem;
 box-shadow: 0 0 10px #827ffe;
 color: #827ffe;

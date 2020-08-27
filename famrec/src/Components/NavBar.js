@@ -45,7 +45,7 @@ const NavBar = props => {
             <div className="navbar-container">
                 <div className="link-container">
                     <NavLink activeClassName='active-nav' to='/recipes' class="links">
-                    <h2>Home</h2>
+                    {props.isLoggedIn ?  <h2>Home</h2> : null}
                     </NavLink> 
                     
                     <NavLink activeClassName='active-nav' to='/add-recipe' class="links">
